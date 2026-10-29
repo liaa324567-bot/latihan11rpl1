@@ -56,7 +56,7 @@ if (mysqli_num_rows($hasil) > 0){
       <td><?php echo htmlspecialchars($user['created_at']); ?></td>
       <td class="text-center">
           <a href="edit_user.php?id=<?php echo $user['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-          <a href="delete_user.php?id=<?php echo $user['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</a>
+          <a href="hapus_user.php?id=<?php echo $user['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
       </td>
     </tr>
     <?php 
@@ -70,4 +70,3 @@ if (mysqli_num_rows($hasil) > 0){
   </tbody>
 </table>
 
-<?php require "footer.php"?>

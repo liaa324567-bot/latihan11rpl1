@@ -3,7 +3,7 @@
 $username = "root";
 $password = ""; 
 $hostname = "localhost";
-$database = "db_nilai";
+$database = "db_siacad_smk";
 
 $koneksi = mysqli_connect($hostname, $username, $password, $database);
 

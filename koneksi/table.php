@@ -3,13 +3,12 @@ require_once ('navbar.php');
 require_once ('koneksi.php');
 require_once ('footer.php');
 
-$sql = "SELECT users.*,
-        COALESCE(siswa.nama, guru.nama) AS nama
-        FROM users
-        LEFT JOIN siswa ON users.id = siswa.user_id
-        LEFT JOIN guru ON users.id = guru.user_id
-        ORDER BY users.id DESC"
-        ;
+$sql ="SELECT users.*, 
+COALESCE(siswa.nama, guru.nama) AS nama
+FROM users
+LEFT JOIN siswa ON users.id = siswa.user_id
+LEFT JOIN guru ON users.id = guru.user_id
+ORDER BY users.id DESC";        
 
 //untuk menjalankan perintah atau sql atau query di atas
 $hasil = mysqli_query($koneksi, $sql);
@@ -60,8 +59,8 @@ if (mysqli_num_rows($hasil) > 0) {
         <td><?php echo $user['role']; ?></td>
         <td><?php echo $user['nama']; ?></td>
         <td>
-          <a href="edit_user.php?id=<?php echo $user['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-          <a href="delete_user.php?id=<?php echo $user['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</a>
+          <a href="form_edit.php?id=<?php echo $user['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
+          <a href="aksi_hapus.php?id=<?php echo $user['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
         </td>
       </tr>
     <?php } ?>
