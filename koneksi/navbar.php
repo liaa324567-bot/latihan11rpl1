@@ -7,7 +7,7 @@ $username = $_SESSION['username'] ?? 'user';
 $nama = $_SESSION['nama'] ?? 'admin';
 $role = $_SESSION['role'] ?? '';
 $scriptDirectory = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
-$koneksiBasePath = preg_replace('~/projek tugas besar$~', '', rtrim($scriptDirectory, '/'));
+$koneksiBasePath = preg_replace('~/projek(?: |%20)tugas(?: |%20)besar(?:/.*)?$~i', '', rtrim($scriptDirectory, '/'));
 $mengajarBasePath = htmlspecialchars($koneksiBasePath . '/projek%20tugas%20besar/', ENT_QUOTES, 'UTF-8');
 ?>
 
@@ -19,12 +19,12 @@ $mengajarBasePath = htmlspecialchars($koneksiBasePath . '/projek%20tugas%20besar
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Latihan Navbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
-        <div class="container-fluid">
+        <div class="container-fluid align-items-center">
             <!-- Brand / Logo -->
             <a class="navbar-brand fw-bold" href="#">Navbar</a>
             
@@ -38,7 +38,7 @@ $mengajarBasePath = htmlspecialchars($koneksiBasePath . '/projek%20tugas%20besar
                 <!-- Menu Utama di Kiri -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="table.php">Home</a>
                     </li>
 
                     <!-- Dropdown User -->
@@ -72,7 +72,7 @@ $mengajarBasePath = htmlspecialchars($koneksiBasePath . '/projek%20tugas%20besar
                             Guru
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="daftar_guru.php">Daftar Guru</a></li>
+                            <li><a class="dropdown-item" href="<?= htmlspecialchars($koneksiBasePath . '/daftar_guru.php', ENT_QUOTES, 'UTF-8') ?>">Daftar Guru</a></li>
                             <li><a class="dropdown-item" href="form_guru.php">Tambah Guru</a></li>
                         </ul>
                     </li>
@@ -99,6 +99,11 @@ $mengajarBasePath = htmlspecialchars($koneksiBasePath . '/projek%20tugas%20besar
                         </ul>
                     </li>
 
+                    <!-- Tambahan Menu Home di Kiri Nilai Siswa -->
+                    <li class="nav-item">
+                    <a class="nav-link" href="<?= $koneksiBasePath ?>/index.php">Home</a>
+                    </li>
+
                     <!-- Menu Dinamis Berdasarkan Role -->
                     <?php if ($role === 'admin'): ?>
                         <li class="nav-item">
@@ -106,7 +111,7 @@ $mengajarBasePath = htmlspecialchars($koneksiBasePath . '/projek%20tugas%20besar
                         </li>
                     <?php elseif ($role === 'guru'): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $mengajarBasePath ?>daftar_nilai2.php">Daftar Siswa</a>
+                            <a class="nav-link" href="<?= $mengajarBasePath ?>daftar_nilai2.php">Nilai Siswa</a>
                         </li>
                     <?php elseif ($role === 'siswa'): ?>
                         <li class="nav-item">
@@ -131,7 +136,9 @@ $mengajarBasePath = htmlspecialchars($koneksiBasePath . '/projek%20tugas%20besar
                             (<?php echo htmlspecialchars($username); ?>)
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li><a class="dropdown-item" href="<?= $mengajarBasePath ?>user%20menu/profile.php">Profil</a></li>
+                            <!-- Menu Pengaturan Ditambahkan di Sini -->
+                            <li><a class="dropdown-item" href="<?= $mengajarBasePath ?>user%20menu/pengaturan/<?= $role === 'siswa' ? 'pengaturan_siswa.php' : ($role === 'guru' ? 'pengaturan_guru.php' : 'pengaturan%20_admin.php') ?>">Pengaturan</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-danger" href="<?= htmlspecialchars($koneksiBasePath . '/logout.php', ENT_QUOTES, 'UTF-8') ?>">Logout</a></li>
                         </ul>

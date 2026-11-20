@@ -15,7 +15,7 @@ switch ($role) {
         exit;
 
     case 'guru':
-        header('Location: daftar_guru.php');
+        header('Location: projek%20tugas%20besar/daftar_guru2.php');
         exit;
 
     case 'siswa':

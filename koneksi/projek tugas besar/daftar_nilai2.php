@@ -13,11 +13,14 @@ if (
 }
 
 require_once __DIR__ . '/../koneksi.php';
+require_once __DIR__ . '/../navbar.php';
+
 
 $userId = (int) $_SESSION['id'];
 $stmt = mysqli_prepare(
     $koneksi,
-    'SELECT siswa.kelas, mapel.nama_mapel, COUNT(DISTINCT siswa.id) AS jumlah_siswa
+    'SELECT mapel.id AS mapel_id, siswa.kelas, mapel.nama_mapel,
+            COUNT(DISTINCT siswa.id) AS jumlah_siswa
      FROM mengajar
      INNER JOIN siswa ON siswa.id = mengajar.siswa_id
      INNER JOIN mapel ON mapel.id = mengajar.mapel_id
@@ -97,7 +100,7 @@ if (!$result) {
                                     <td><?= htmlspecialchars($kelasDiajar['nama_mapel'], ENT_QUOTES, 'UTF-8') ?></td>
                                     <td><?= (int) $kelasDiajar['jumlah_siswa'] ?> siswa</td>
                                     <td class="text-center">
-                                        <button class="btn btn-primary btn-sm px-3" type="button" disabled title="Fitur detail kelas belum tersedia">Lihat</button>
+                                        <a class="btn btn-primary btn-sm px-3" href="detail_nilai.php?mapel_id=<?= (int) $kelasDiajar['mapel_id'] ?>&amp;kelas=<?= rawurlencode($kelasDiajar['kelas']) ?>">Lihat Nilai</a>
                                     </td>
                                 </tr>
                             <?php } ?>
